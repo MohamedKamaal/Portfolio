@@ -640,30 +640,7 @@
     </div>
 
   </footer>
-<!-- Toast Notifications (hidden by default) -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <!-- Success Toast -->
-  <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        <i class="bi bi-check-circle-fill me-2"></i>
-        <strong>Success!</strong> Your message has been sent.
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div>
-  
-  <!-- Error Toast -->
-  <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-        <strong>Error!</strong> <span id="errorMessage">Failed to send message.</span>
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div>
-</div>
+
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -682,50 +659,18 @@
 
 <script>
   document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent page reload
     
-    // Initialize toast
-    const toastEl = document.getElementById('formToast');
-    const toast = new bootstrap.Toast(toastEl);
-    const submitBtn = event.target.querySelector('[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    
-    // Show loading state
-    submitBtn.innerHTML = `
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Sending...
-    `;
-    submitBtn.disabled = true;
-
+    // Send email
     emailjs.sendForm('portfolio-contact', 'template_20xqkne', this)
-      .then(function() {
-        // Success styling
-        toastEl.classList.remove('bg-danger');
-        toastEl.classList.add('bg-success', 'text-white');
-        document.getElementById('toastTitle').innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Success!';
-        document.getElementById('toastMessage').textContent = 'Message sent successfully!';
-        
-        // Reset form
-        document.getElementById('contact-form').reset();
-      })
-      .catch(function(error) {
-        // Error styling
-        toastEl.classList.remove('bg-success');
-        toastEl.classList.add('bg-danger', 'text-white');
-        document.getElementById('toastTitle').innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Error!';
-        document.getElementById('toastMessage').textContent = 'Failed to send: ' + error.text;
-      })
-      .finally(function() {
-        // Show toast and reset button
-        toast.show();
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        
-        // Auto-hide after 5 seconds
-        setTimeout(() => toast.hide(), 5000);
-      });
-  });
-</script>
+        .then(function() {
+            alert('Message sent successfully!');
+            document.getElementById('contact-form').reset(); // Clear form
+        }, function(error) {
+            alert('Failed to send: ' + error.text);
+        });
+});
+  </script>
 </body>
 
 </html>
