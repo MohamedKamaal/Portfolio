@@ -73,8 +73,8 @@
       </nav>
 
       <div class="header-social-links">
-        <a href="https://github.com/MohamedKamaal/" class="github"><i class="bi bi-github"></i></a>
-        <a href="https://www.linkedin.com/in/mohamedkamal-backend/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a id="github-link" href="https://github.com/MohamedKamaal/" class="github"><i class="bi bi-github"></i></a>
+        <a id="linkedin-link" href="https://www.linkedin.com/in/mohamedkamal-backend/" class="linkedin"><i class="bi bi-linkedin"></i></a>
       </div>
 
     </div>
@@ -305,7 +305,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-6 text-center">
         <!-- Download Button -->
-        <a href="https://www.dropbox.com/scl/fi/dm3zhlv16dx2i6n92zqvq/MohamedKamal-BackEnd.pdf?rlkey=0bd2xjxhzm3ll7qk5i0rlxhtf&st=5e58uv36&dl=0" class="btn btn-primary btn-lg download-btn" target="_blank">
+        <a id="resume-btn" href="https://www.dropbox.com/scl/fi/dm3zhlv16dx2i6n92zqvq/MohamedKamal-BackEnd.pdf?rlkey=0bd2xjxhzm3ll7qk5i0rlxhtf&st=5e58uv36&dl=0" class="btn btn-primary btn-lg download-btn" target="_blank">
           <i class="bi bi-download me-2"></i> View Resume
         </a>
         
@@ -616,7 +616,22 @@
     </div>
   </div>
 </section><!-- /Contact Section -->
+<script>
+document.getElementById("resume-btn").addEventListener("click", function () {
+    amplitude.track("Resume Viewed");
+});
+</script>
+    <script>
+      document.getElementById("github-link").addEventListener("click", function () {
+    amplitude.track("GitHub Clicked");
+});
+      </script>
+    <script>
+      document.getElementById("linkedin-link").addEventListener("click", function () {
+    amplitude.track("LinkedIn Clicked");
+});
 
+      </script>
 <!-- EmailJS Script -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
