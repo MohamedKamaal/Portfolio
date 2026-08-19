@@ -72,7 +72,7 @@
       </nav>
 
       <div class="header-social-links">
-        <a id="github-link" href="https://github.com/MohamedKamaal/" class="github"><i class="bi bi-github"></i></a>
+        <a id="github-link" href="https://github.com/MohamedKamaal!" class="github"><i class="bi bi-github"></i></a>
         <a id="linkedin-link" href="https://www.linkedin.com/in/mohamedkamal-backend/" class="linkedin"><i class="bi bi-linkedin"></i></a>
       </div>
 
@@ -93,8 +93,8 @@
             <h2>Crafting Clean APIs & Scalable Backends</h2>
             <p class="lead">Turning complex requirements into powerful, well-structured systems using Django, DRF, and PostgreSQL.</p>
             <div class="cta-buttons" data-aos="fade-up" data-aos-delay="300">
-              <a href="#portfolio" class="btn btn-primary">View My Work</a>
-              <a href="#contact" class="btn btn-outline">Let's Connect</a>
+              <a id="hero-view-work-btn" href="#portfolio" class="btn btn-primary">View My Work</a>
+              <a id="hero-lets-connect-btn" href="#contact" class="btn btn-outline">Let's Connect</a>
             </div>
             <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
               <div class="stat-item">
@@ -307,11 +307,6 @@
         <a id="resume-btn" href="https://www.dropbox.com/scl/fi/dm3zhlv16dx2i6n92zqvq/MohamedKamal-BackEnd.pdf?rlkey=0bd2xjxhzm3ll7qk5i0rlxhtf&st=5e58uv36&dl=0" class="btn btn-primary btn-lg download-btn" target="_blank">
           <i class="bi bi-download me-2"></i> View Resume
         </a>
-        
-        <!-- Alternative: If you need a button that triggers JS action -->
-        <!-- <button class="btn btn-primary btn-lg download-btn" onclick="downloadResume()">
-          <i class="bi bi-download me-2"></i> Download Resume
-        </button> -->
       </div>
     </div>
   </div>
@@ -353,7 +348,7 @@
                   <div class="portfolio-overlay">
                     <div class="portfolio-actions">
                       <a href="assets/img/portfolio/pharma-doc.JPG" class="glightbox preview-link" data-gallery="portfolio-gallery-web"><i class="bi bi-eye"></i></a>
-                      <a href="pharmacy-management-restapi.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
+                      <a href="pharmacy-management-restapi.html" class="details-link portfolio-details-link" data-project="Pharmacy Management Rest API"><i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -372,7 +367,7 @@
                   <div class="portfolio-overlay">
                     <div class="portfolio-actions">
                       <a href="assets/img/portfolio/index2.JPG" class="glightbox preview-link" data-gallery="portfolio-gallery-graphics"><i class="bi bi-eye"></i></a>
-                      <a href="ecommerce.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
+                      <a href="ecommerce.html" class="details-link portfolio-details-link" data-project="Full Stack Ecommerce Webapp"><i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -391,7 +386,7 @@
                   <div class="portfolio-overlay">
                     <div class="portfolio-actions">
                       <a href="assets/img/portfolio/blog-doc.JPG" class="glightbox preview-link" data-gallery="portfolio-gallery-motion"><i class="bi bi-eye"></i></a>
-                      <a href="blog-restapi.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
+                      <a href="blog-restapi.html" class="details-link portfolio-details-link" data-project="Blog Rest API"><i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -547,7 +542,7 @@
           <div class="faq-item">
             <h3>Do you provide documentation and testing?</h3>
             <div class="faq-content">
-              <p>Definitely. I write clear API documentation (Swagger or ReDoc), and use Pytest and Django’s test framework for unit and integration testing.</p>
+              <p>Definitely. I write clear API documentation (Swagger or ReDoc), and use Pytest and Django's test framework for unit and integration testing.</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div>
@@ -615,33 +610,37 @@
     </div>
   </div>
 </section><!-- /Contact Section -->
+
+<!-- =========================================================
+     AMPLITUDE EVENTS — existing (untouched)
+     ========================================================= -->
 <script>
 document.getElementById("resume-btn").addEventListener("click", function () {
     amplitude.track("Resume Viewed");
 });
 </script>
-    <script>
-      document.getElementById("github-link").addEventListener("click", function () {
+
+<script>
+document.getElementById("github-link").addEventListener("click", function () {
     amplitude.track("GitHub Clicked");
 });
-      </script>
-    <script>
-      document.getElementById("linkedin-link").addEventListener("click", function () {
+</script>
+
+<script>
+document.getElementById("linkedin-link").addEventListener("click", function () {
     amplitude.track("LinkedIn Clicked");
 });
+</script>
 
-      </script>
 <!-- EmailJS Script -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
   (function() {
-    emailjs.init("EdZtPNpj-SoyHEKSR"); // Your User ID
+    emailjs.init("EdZtPNpj-SoyHEKSR");
   })();
 
   document.getElementById('contactForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    
-    // Send email
     emailjs.sendForm('portfolio-contact', 'template_20xqkne', this)
       .then(function() {
         alert('Message sent successfully!');
@@ -650,6 +649,101 @@ document.getElementById("resume-btn").addEventListener("click", function () {
         alert('Failed to send message: ' + JSON.stringify(error));
       });
   });
+</script>
+
+<!-- =========================================================
+     AMPLITUDE EVENTS — new additions
+     ========================================================= -->
+<script>
+(function () {
+
+  // 1. Hero CTA buttons
+  var viewWorkBtn = document.getElementById("hero-view-work-btn");
+  if (viewWorkBtn) {
+    viewWorkBtn.addEventListener("click", function () {
+      amplitude.track("Hero CTA Clicked", { button: "View My Work" });
+    });
+  }
+
+  var letsConnectBtn = document.getElementById("hero-lets-connect-btn");
+  if (letsConnectBtn) {
+    letsConnectBtn.addEventListener("click", function () {
+      amplitude.track("Hero CTA Clicked", { button: "Let's Connect" });
+    });
+  }
+
+  // 2. Portfolio project details clicked
+  document.querySelectorAll(".portfolio-details-link").forEach(function (link) {
+    link.addEventListener("click", function () {
+      amplitude.track("Portfolio Item Clicked", {
+        project: this.getAttribute("data-project") || this.getAttribute("href")
+      });
+    });
+  });
+
+  // 3. Contact form submitted (success)
+  var contactForm = document.getElementById("contactForm");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function () {
+      amplitude.track("Contact Form Submitted");
+    });
+  }
+
+  // 4. FAQ item opened
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class" &&
+          item.classList.contains("faq-active")
+        ) {
+          var question = item.querySelector("h3");
+          amplitude.track("FAQ Item Opened", {
+            question: question ? question.textContent.trim() : "Unknown"
+          });
+        }
+      });
+    });
+    observer.observe(item, { attributes: true });
+  });
+
+  // 5. Section viewed — Services & Portfolio (fires once per section per page load)
+  var sectionsSeen = {};
+  var sectionsToTrack = [
+    { id: "services", name: "Services Section Viewed" },
+    { id: "portfolio", name: "Portfolio Section Viewed" },
+    { id: "about", name: "About Section Viewed" },
+    { id: "contact", name: "Contact Section Viewed" }
+  ];
+
+  var intersectionObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !sectionsSeen[entry.target.id]) {
+        sectionsSeen[entry.target.id] = true;
+        var match = sectionsToTrack.find(function (s) { return s.id === entry.target.id; });
+        if (match) {
+          amplitude.track(match.name);
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sectionsToTrack.forEach(function (s) {
+    var el = document.getElementById(s.id);
+    if (el) intersectionObserver.observe(el);
+  });
+
+  // 6. Footer social links
+  document.querySelectorAll("#footer a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      var href = this.getAttribute("href") || "";
+      var platform = href.includes("github") ? "GitHub" : href.includes("linkedin") ? "LinkedIn" : "Unknown";
+      amplitude.track("Footer Social Clicked", { platform: platform });
+    });
+  });
+
+})();
 </script>
 
   </main>
@@ -683,20 +777,6 @@ document.getElementById("resume-btn").addEventListener("click", function () {
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-<script>
-  document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent page reload
-    
-    // Send email
-    emailjs.sendForm('portfolio-contact', 'template_20xqkne', this)
-        .then(function() {
-            alert('Message sent successfully!');
-            document.getElementById('contact-form').reset(); // Clear form
-        }, function(error) {
-            alert('Failed to send: ' + error.text);
-        });
-});
-  </script>
 </body>
 
 </html>
