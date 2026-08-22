@@ -3,7 +3,42 @@
 
 <head>
   
-<script src="https://cdn.amplitude.com/script/8e28e9e78c029d2d1911ffaacb7d4210.js"></script><script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('8e28e9e78c029d2d1911ffaacb7d4210', {"fetchRemoteConfig":true,"autocapture":true});</script>  
+<script src="https://cdn.amplitude.com/script/8e28e9e78c029d2d1911ffaacb7d4210.js"></script>
+<script>
+window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+window.amplitude.init('8e28e9e78c029d2d1911ffaacb7d4210', {"fetchRemoteConfig":true,"autocapture":true});
+
+// =========================================================
+// CUSTOM USER PROPERTIES (RESTORED)
+// =========================================================
+(function() {
+    // Set default custom user properties
+    window.amplitude.setUserProperties({
+        "visitor_type": "portfolio_viewer",
+        "user_role": "backend_developer",
+        "source": document.referrer || "direct",
+        "browser_language": navigator.language || "unknown",
+        "screen_resolution": screen.width + "x" + screen.height || "unknown"
+    });
+    
+    // Dynamic: If user came from LinkedIn, update visitor_type
+    if (document.referrer && document.referrer.includes("linkedin")) {
+        window.amplitude.setUserProperties({
+            "visitor_type": "recruiter",
+            "source": "linkedin"
+        });
+    }
+    
+    // Dynamic: If user came from GitHub
+    if (document.referrer && document.referrer.includes("github")) {
+        window.amplitude.setUserProperties({
+            "visitor_type": "peer_developer",
+            "source": "github"
+        });
+    }
+})();
+</script>
+  
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-15NHSFSNCS"></script>
   <script>
