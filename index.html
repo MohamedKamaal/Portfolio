@@ -4,6 +4,14 @@
 <head>
   
 <script src="https://cdn.amplitude.com/script/8e28e9e78c029d2d1911ffaacb7d4210.js"></script><script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('8e28e9e78c029d2d1911ffaacb7d4210', {"fetchRemoteConfig":true,"autocapture":true});</script>  
+  <script>
+// Add this after your Amplitude init code
+window.amplitude.setUserProperties({
+    "visitor_type": "portfolio_viewer",
+    "user_role": "backend_developer",
+    "source": document.referrer || "direct"
+});
+</script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-15NHSFSNCS"></script>
   <script>
