@@ -4,14 +4,6 @@
 <head>
   
 <script src="https://cdn.amplitude.com/script/8e28e9e78c029d2d1911ffaacb7d4210.js"></script><script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('8e28e9e78c029d2d1911ffaacb7d4210', {"fetchRemoteConfig":true,"autocapture":true});</script>  
-  <script>
-// Add this after your Amplitude init code
-window.amplitude.setUserProperties({
-    "visitor_type": "portfolio_viewer",
-    "user_role": "backend_developer",
-    "source": document.referrer || "direct"
-});
-</script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-15NHSFSNCS"></script>
   <script>
@@ -46,13 +38,6 @@ window.amplitude.setUserProperties({
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: EasyFolio
-  * Template URL: https://bootstrapmade.com/easyfolio-bootstrap-portfolio-template/
-  * Updated: Feb 21 2025 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
@@ -61,8 +46,6 @@ window.amplitude.setUserProperties({
     <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.webp" alt=""> -->
         <h1 class="sitename">Mohamed Kamal Portfolio</h1>
       </a>
 
@@ -73,7 +56,6 @@ window.amplitude.setUserProperties({
           <li><a href="#resume">Resume</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#services">Services</a></li>
-          
           <li><a href="#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -178,21 +160,21 @@ window.amplitude.setUserProperties({
               <div class="col-6">
                 <div class="info-item">
                   <span class="label">Phone</span>
-                  <span class="value">+201020419495</span> <!-- Replace with actual if needed -->
+                  <span class="value">+201020419495</span>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="info-item">
                   <span class="label">Age</span>
-                  <span class="value">28 Years</span> <!-- Update if needed -->
+                  <span class="value">28 Years</span>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="info-item">
                   <span class="label">Email</span>
-                  <span class="value">muhamedkamal@outlook.com</span> <!-- Replace with your real email -->
+                  <span class="value">muhamedkamal@outlook.com</span>
                 </div>
               </div>
 
@@ -206,7 +188,7 @@ window.amplitude.setUserProperties({
               <div class="col-6">
                 <div class="info-item">
                   <span class="label">Nationality</span>
-                  <span class="value">Egyptian</span> <!-- Based on your previous info — adjust if needed -->
+                  <span class="value">Egyptian</span>
                 </div>
               </div>
             </div>
@@ -620,23 +602,33 @@ window.amplitude.setUserProperties({
 </section><!-- /Contact Section -->
 
 <!-- =========================================================
-     AMPLITUDE EVENTS — existing (untouched)
+     AMPLITUDE EVENTS — UPDATED WITH CUSTOM EVENT PROPERTIES
      ========================================================= -->
+
+<!-- 1. Resume Viewed (with location property) -->
 <script>
 document.getElementById("resume-btn").addEventListener("click", function () {
-    amplitude.track("Resume Viewed");
+    amplitude.track("Resume Viewed", {
+        location: "resume_section"
+    });
 });
 </script>
 
+<!-- 2. GitHub Clicked (with location property) -->
 <script>
 document.getElementById("github-link").addEventListener("click", function () {
-    amplitude.track("GitHub Clicked");
+    amplitude.track("GitHub Clicked", {
+        location: "header"
+    });
 });
 </script>
 
+<!-- 3. LinkedIn Clicked (with location property) -->
 <script>
 document.getElementById("linkedin-link").addEventListener("click", function () {
-    amplitude.track("LinkedIn Clicked");
+    amplitude.track("LinkedIn Clicked", {
+        location: "header"
+    });
 });
 </script>
 
@@ -649,6 +641,15 @@ document.getElementById("linkedin-link").addEventListener("click", function () {
 
   document.getElementById('contactForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    
+    // Track form submission with properties
+    amplitude.track("Contact Form Submitted", {
+        form_id: "contactForm",
+        has_name: document.getElementById("name").value.length > 0,
+        has_email: document.getElementById("email").value.length > 0,
+        has_message: document.getElementById("message").value.length > 0
+    });
+    
     emailjs.sendForm('portfolio-contact', 'template_20xqkne', this)
       .then(function() {
         alert('Message sent successfully!');
@@ -660,69 +661,80 @@ document.getElementById("linkedin-link").addEventListener("click", function () {
 </script>
 
 <!-- =========================================================
-     AMPLITUDE EVENTS — new additions
+     AMPLITUDE EVENTS — ALL EVENTS WITH FULL PROPERTIES
      ========================================================= -->
 <script>
 (function () {
 
-  // 1. Hero CTA buttons
+  // 1. Hero CTA buttons (with button property)
   var viewWorkBtn = document.getElementById("hero-view-work-btn");
   if (viewWorkBtn) {
     viewWorkBtn.addEventListener("click", function () {
-      amplitude.track("Hero CTA Clicked", { button: "View My Work" });
+      amplitude.track("Hero CTA Clicked", { 
+        button: "View My Work",
+        section: "hero"
+      });
     });
   }
 
   var letsConnectBtn = document.getElementById("hero-lets-connect-btn");
   if (letsConnectBtn) {
     letsConnectBtn.addEventListener("click", function () {
-      amplitude.track("Hero CTA Clicked", { button: "Let's Connect" });
+      amplitude.track("Hero CTA Clicked", { 
+        button: "Let's Connect",
+        section: "hero"
+      });
     });
   }
 
-  // 2. Portfolio project details clicked
+  // 2. Portfolio project details clicked (with project, category, position)
   document.querySelectorAll(".portfolio-details-link").forEach(function (link) {
     link.addEventListener("click", function () {
       amplitude.track("Portfolio Item Clicked", {
-        project: this.getAttribute("data-project") || this.getAttribute("href")
+        project: this.getAttribute("data-project") || this.getAttribute("href"),
+        category: "Web Development",
+        position: parseInt(this.getAttribute("data-position")) || 0
       });
     });
   });
 
-  // 3. Contact form submitted (success)
-  var contactForm = document.getElementById("contactForm");
-  if (contactForm) {
-    contactForm.addEventListener("submit", function () {
-      amplitude.track("Contact Form Submitted");
+  // 3. Portfolio image previewed (with project)
+  document.querySelectorAll(".preview-link").forEach(function (link) {
+    link.addEventListener("click", function () {
+      var parentCard = this.closest(".portfolio-card");
+      var projectName = parentCard ? parentCard.querySelector(".details-link")?.getAttribute("data-project") : "unknown";
+      amplitude.track("Portfolio Image Previewed", {
+        project: projectName || "unknown"
+      });
     });
-  }
+  });
 
-  // 4. FAQ item opened
+  // 4. FAQ item opened/closed (with question property)
   document.querySelectorAll(".faq-item").forEach(function (item) {
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "class" &&
-          item.classList.contains("faq-active")
-        ) {
+        if (mutation.type === "attributes" && mutation.attributeName === "class") {
           var question = item.querySelector("h3");
-          amplitude.track("FAQ Item Opened", {
-            question: question ? question.textContent.trim() : "Unknown"
-          });
+          var questionText = question ? question.textContent.trim() : "Unknown";
+          if (item.classList.contains("faq-active")) {
+            amplitude.track("FAQ Item Opened", { question: questionText });
+          } else {
+            amplitude.track("FAQ Item Closed", { question: questionText });
+          }
         }
       });
     });
     observer.observe(item, { attributes: true });
   });
 
-  // 5. Section viewed — Services & Portfolio (fires once per section per page load)
+  // 5. Section viewed (with section property)
   var sectionsSeen = {};
   var sectionsToTrack = [
-    { id: "services", name: "Services Section Viewed" },
-    { id: "portfolio", name: "Portfolio Section Viewed" },
-    { id: "about", name: "About Section Viewed" },
-    { id: "contact", name: "Contact Section Viewed" }
+    { id: "services", name: "Services Section Viewed", section: "Services" },
+    { id: "portfolio", name: "Portfolio Section Viewed", section: "Portfolio" },
+    { id: "about", name: "About Section Viewed", section: "About" },
+    { id: "contact", name: "Contact Section Viewed", section: "Contact" },
+    { id: "resume", name: "Resume Section Viewed", section: "Resume" }
   ];
 
   var intersectionObserver = new IntersectionObserver(function (entries) {
@@ -731,7 +743,7 @@ document.getElementById("linkedin-link").addEventListener("click", function () {
         sectionsSeen[entry.target.id] = true;
         var match = sectionsToTrack.find(function (s) { return s.id === entry.target.id; });
         if (match) {
-          amplitude.track(match.name);
+          amplitude.track(match.name, { section: match.section });
         }
       }
     });
@@ -742,14 +754,69 @@ document.getElementById("linkedin-link").addEventListener("click", function () {
     if (el) intersectionObserver.observe(el);
   });
 
-  // 6. Footer social links
+  // 6. Footer social links (with platform property)
   document.querySelectorAll("#footer a").forEach(function (link) {
     link.addEventListener("click", function () {
       var href = this.getAttribute("href") || "";
       var platform = href.includes("github") ? "GitHub" : href.includes("linkedin") ? "LinkedIn" : "Unknown";
-      amplitude.track("Footer Social Clicked", { platform: platform });
+      amplitude.track("Footer Social Clicked", { 
+        platform: platform,
+        location: "footer"
+      });
     });
   });
+
+  // 7. Navigation link clicks (with link property)
+  document.querySelectorAll("#navmenu a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      var linkText = this.textContent.trim() || "unknown";
+      amplitude.track("Navigation Link Clicked", {
+        link: linkText,
+        href: this.getAttribute("href") || "unknown"
+      });
+    });
+  });
+
+  // 8. Scroll depth (with percentage property)
+  var scrollDepths = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener("scroll", function () {
+    var scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    var depths = [25, 50, 75, 100];
+    for (var i = 0; i < depths.length; i++) {
+      if (scrollPercent >= depths[i] && !scrollDepths[depths[i]]) {
+        scrollDepths[depths[i]] = true;
+        amplitude.track("Scroll Depth", { percentage: depths[i] });
+      }
+    }
+  });
+
+  // 9. Contact form started (with form_id property)
+  var contactForm = document.getElementById("contactForm");
+  if (contactForm) {
+    var formStarted = false;
+    contactForm.querySelectorAll("input, textarea").forEach(function (field) {
+      field.addEventListener("focus", function () {
+        if (!formStarted) {
+          formStarted = true;
+          amplitude.track("Contact Form Started", { 
+            form_id: "contactForm",
+            field_name: this.getAttribute("name") || "unknown"
+          });
+        }
+      });
+    });
+  }
+
+  // 10. Services CTA button (with button property)
+  var servicesCta = document.querySelector(".services .btn-outline-primary");
+  if (servicesCta) {
+    servicesCta.addEventListener("click", function () {
+      amplitude.track("Services CTA Clicked", {
+        button: "Let's Work Together",
+        section: "Services"
+      });
+    });
+  }
 
 })();
 </script>
